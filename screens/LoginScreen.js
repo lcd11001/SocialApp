@@ -79,7 +79,10 @@ export default class LoginScreen extends React.Component {
                     <Text style={styles.buttonTextMain}>Sign in</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.buttonSecondary}>
+                <TouchableOpacity
+                    style={styles.buttonSecondary}
+                    onPress={() => this.props.navigation.navigate('Register')}
+                >
                     <Text style={styles.buttonTextThird}>
                         New to Social App?{' '}
                         <Text style={styles.buttonTextSecondary}>Sign up</Text>
