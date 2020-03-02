@@ -1,5 +1,11 @@
 import React from 'react'
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import {
+    View,
+    Text,
+    StyleSheet,
+    TextInput,
+    TouchableOpacity
+} from 'react-native'
 import * as firebase from 'firebase'
 
 export default class LoginScreen extends React.Component {
@@ -13,28 +19,31 @@ export default class LoginScreen extends React.Component {
     }
 
     handleLogin = () => {
-        const {
-            email,
-            password
-        } = this.state
+        const { email, password } = this.state
 
         firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password)
-        .catch(error => {
-            this.setState({
-                errorMessage: error.message
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .catch(error => {
+                this.setState({
+                    errorMessage: error.message
+                })
             })
-        })
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.gretting}>{`Hello again\nWelcome back`}</Text>
+                <Text style={styles.gretting}>
+                    {`Hello again\nWelcome back`}
+                </Text>
 
                 <View style={styles.errorMessage}>
-                    {this.state.errorMessage && <Text style={styles.error}>{this.state.errorMessage}</Text>}
+                    {this.state.errorMessage && (
+                        <Text style={styles.error}>
+                            {this.state.errorMessage}
+                        </Text>
+                    )}
                 </View>
 
                 <View style={styles.form}>
@@ -42,35 +51,39 @@ export default class LoginScreen extends React.Component {
                         <Text style={styles.inputTitle}>Email address</Text>
                         <TextInput
                             style={styles.input}
-                            autoCapitalize='none'
+                            autoCapitalize="none"
                             onChangeText={email => {
                                 this.setState({ email })
                             }}
                             value={this.state.email}
-                        >
-                        </TextInput>
+                        ></TextInput>
                     </View>
                     <View style={{ marginTop: 32 }}>
                         <Text style={styles.inputTitle}>Password</Text>
                         <TextInput
                             style={styles.input}
                             secureTextEntry
-                            autoCapitalize='none'
+                            autoCapitalize="none"
                             onChangeText={password => {
                                 this.setState({ password })
                             }}
                             value={this.state.password}
-                        >
-                        </TextInput>
+                        ></TextInput>
                     </View>
                 </View>
 
-                <TouchableOpacity style={styles.buttonMain} onPress={this.handleLogin}>
+                <TouchableOpacity
+                    style={styles.buttonMain}
+                    onPress={this.handleLogin}
+                >
                     <Text style={styles.buttonTextMain}>Sign in</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.buttonSecondary}>
-                    <Text style={styles.buttonTextThird}>New to Social App? <Text style={styles.buttonTextSecondary}>Sign up</Text></Text>
+                    <Text style={styles.buttonTextThird}>
+                        New to Social App?{' '}
+                        <Text style={styles.buttonTextSecondary}>Sign up</Text>
+                    </Text>
                 </TouchableOpacity>
             </View>
         )
@@ -141,5 +154,4 @@ const styles = StyleSheet.create({
         color: '#414959',
         fontSize: 13
     }
-
 })
