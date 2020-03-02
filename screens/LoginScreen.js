@@ -4,11 +4,18 @@ import {
     Text,
     StyleSheet,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    Image,
+    StatusBar,
+    LayoutAnimation
 } from 'react-native'
 import * as firebase from 'firebase'
 
 export default class LoginScreen extends React.Component {
+    // static navigationOptions = {
+    //     header: null
+    // }
+
     constructor(props) {
         super(props)
         this.state = {
@@ -32,8 +39,27 @@ export default class LoginScreen extends React.Component {
     }
 
     render() {
+        LayoutAnimation.easeInEaseOut()
+
         return (
             <View style={styles.container}>
+                <StatusBar barStyle="light-content"></StatusBar>
+
+                <Image
+                    source={require('../assets/authHeader.png')}
+                    style={styles.imageHeader}
+                />
+
+                <Image
+                    source={require('../assets/authHeader.png')}
+                    style={styles.imageFooter}
+                />
+
+                <Image
+                    source={require('../assets/hi.png')}
+                    style={styles.imageHello}
+                />
+
                 <Text style={styles.gretting}>
                     {`Hello again\nWelcome back`}
                 </Text>
@@ -93,12 +119,16 @@ export default class LoginScreen extends React.Component {
     }
 }
 
+LoginScreen.navigationOptions = {
+    headerShown: false
+}
+
 const styles = StyleSheet.create({
     container: {
         flex: 1
     },
     gretting: {
-        marginTop: 32,
+        marginTop: -32,
         fontSize: 18,
         fontWeight: '400',
         textAlign: 'center'
@@ -156,5 +186,32 @@ const styles = StyleSheet.create({
     buttonTextThird: {
         color: '#414959',
         fontSize: 13
+    },
+
+    imageHeader: {
+        // backgroundColor: 'rgba(255, 0, 0, 0.5)',
+        width: '100%',
+        minHeight: 100,
+        marginTop: -50
+    },
+
+    imageFooter: {
+        // backgroundColor: 'rgba(0, 255, 0, 0.5)',
+        width: '100%',
+        minHeight: 100,
+        position: 'absolute',
+        bottom: -50,
+        transform: [
+            {
+                rotate: '180deg'
+            }
+        ]
+    },
+    imageHello: {
+        width: 50,
+        height: 50,
+        alignSelf: 'center',
+        marginTop: -20,
+        marginLeft: '-70%'
     }
 })
