@@ -36,7 +36,7 @@ export default class PostScreen extends React.Component {
                         autoFocus={true}
                         multiline={true}
                         numberOfLines={4}
-                        styles={styles.input}
+                        style={styles.input}
                         placeholder="Want to share something?"
                     ></TextInput>
                 </View>
@@ -74,7 +74,11 @@ const styles = StyleSheet.create({
         // borderWidth: 1
     },
     input: {
-        flex: 1
+        flex: 1,
+        borderWidth: 1,
+        borderColor: '#D8D9DB',
+        borderRadius: 10,
+        padding: 5
     },
     photo: {
         alignItems: 'flex-end',
