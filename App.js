@@ -15,12 +15,6 @@ import NotificationScreen from './screens/NotificationScreen'
 import PostScreen from './screens/PostScreen'
 import ProfileScreen from './screens/ProfileScreen'
 
-import * as firebase from 'firebase'
-import { firebaseConfig } from './config'
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig)
-
 const AppContainer = createStackNavigator(
     {
         default: createBottomTabNavigator(

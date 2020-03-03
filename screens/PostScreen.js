@@ -9,8 +9,23 @@ import {
     TextInput
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
+import RequestPermission from '../utils/RequestPermissions'
+import Fire from '../utils/Fire'
 
 export default class PostScreen extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            text: '',
+            image: null
+        }
+    }
+
+    componentDidMount() {
+        RequestPermission.shared.getPhotoPermission()
+    }
+
     render() {
         return (
             <View style={styles.container}>

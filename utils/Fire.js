@@ -1,8 +1,9 @@
 import { firebaseConfig } from '../config'
-import firebase from 'firebase'
+import * as firebase from 'firebase'
 
 class Fire {
     constructor() {
+        console.log('Fire')
         firebase.initializeApp(firebaseConfig)
     }
 
