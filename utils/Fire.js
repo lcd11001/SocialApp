@@ -9,7 +9,8 @@ class Fire {
     }
 
     addPost = async ({ text, localUri }) => {
-        const remoteUri = localUri != null ? await this.uploadPhotoAsync(localUri) : null
+        const remoteUri =
+            localUri != null ? await this.uploadPhotoAsync(localUri) : null
 
         /**
          * you have to create Firebase Database
@@ -35,11 +36,14 @@ class Fire {
     }
 
     uploadPhotoAsync = async uri => {
-        const path = `photo/${this.uid}/${this.timestamp}.jpg`
-
         return new Promise(async (res, rej) => {
             const response = await fetch(uri)
             const file = await response.blob()
+
+            const path =
+                file.type === 'image/jpeg'
+                    ? `photo/${this.uid}/${this.timestamp}.jpg`
+                    : `photo/${this.uid}/${this.timestamp}.png`
 
             let upload = firebase
                 .storage()
