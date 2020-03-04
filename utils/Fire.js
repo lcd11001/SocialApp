@@ -5,11 +5,17 @@ class Fire {
     constructor() {
         console.log('Fire')
         firebase.initializeApp(firebaseConfig)
+        console.log('Fire store', this.firestore)
     }
 
     addPost = async ({ text, localUri }) => {
-        const remoteUri = await this.uploadPhotoAsync(localUri)
+        const remoteUri = localUri != null ? await this.uploadPhotoAsync(localUri) : null
 
+        /**
+         * you have to create Firebase Database
+         * then, create 'post' collection with appropriate fields
+         * next, create rules which allow read/write permission
+         */
         return new Promise((res, rej) => {
             this.firestore
                 .collection('post')

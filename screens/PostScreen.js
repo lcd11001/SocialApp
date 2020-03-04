@@ -26,18 +26,39 @@ export default class PostScreen extends React.Component {
         RequestPermission.shared.getPhotoPermission()
     }
 
+    handlePost = () => {
+        Fire.shared
+            .addPost({
+                text: this.state.text.trim(),
+                localUri: this.state.image
+            })
+            .then(ref => {
+                this.setState({
+                    text: '',
+                    image: null
+                })
+
+                this.props.navigation.goBack()
+            })
+            .catch(err => {
+                alert(err)
+            })
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.goBack()}
+                    >
                         <Ionicons
                             name="md-arrow-back"
                             size={24}
                             color="#D8D9DB"
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={this.handlePost}>
                         <Text style={{ fontWeight: '500' }}>Post</Text>
                     </TouchableOpacity>
                 </View>
@@ -53,12 +74,32 @@ export default class PostScreen extends React.Component {
                         numberOfLines={4}
                         style={styles.input}
                         placeholder="Want to share something?"
+                        onChangeText={text => this.setState({ text })}
+                        value={this.state.text}
                     ></TextInput>
                 </View>
 
-                <TouchableOpacity style={styles.photo}>
+                <TouchableOpacity
+                    style={styles.photo}
+                    onPress={() => {
+                        RequestPermission.shared.pickImage().then(uri => {
+                            if (uri != null) {
+                                this.setState({
+                                    image: uri
+                                })
+                            }
+                        })
+                    }}
+                >
                     <Ionicons name="md-camera" size={32} color="#D8D9DB" />
                 </TouchableOpacity>
+
+                <View style={styles.photoContainer}>
+                    <Image
+                        source={{ uri: this.state.image }}
+                        style={styles.photoPreview}
+                    />
+                </View>
             </View>
         )
     }
@@ -95,8 +136,18 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 5
     },
+
     photo: {
         alignItems: 'flex-end',
         marginHorizontal: 32
+    },
+    photoContainer: {
+        marginHorizontal: 32,
+        marginTop: 32,
+        height: 150
+    },
+    photoPreview: {
+        width: '100%',
+        height: '100%'
     }
 })
